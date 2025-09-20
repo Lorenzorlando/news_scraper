@@ -1,0 +1,140 @@
+
+
+
+
+
+<!DOCTYPE html>
+<head>
+    
+    <title>News Scraping</title>
+    <style>
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 20px auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        form input[type="text"],
+        form select,
+        form input[type="date"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            flex: 1 1 150px;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover { /* hover = quando l'utente passa il mouse su un elemento */
+            background-color: #2980b9;
+        }
+
+        hr {
+            margin: 40px 0;
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+
+        
+        ul {
+            list-style: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        li {
+            background-color: #fff;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        li a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        li a:hover {
+            color: #3498db;
+            text-decoration: underline;
+        }
+
+        li small {
+            color: #888;
+        }
+
+        li p {
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <h1>Ultime Notizie</h1>
+
+    <form method="get" action="/">
+        <input type="text" name="keyword" placeholder="Cerca per parola chiave" value="{{ request.args.get('keyword','') }}">
+        
+        <select name="fonte">
+            <option value="">Fonti</option>
+            <option value="Repubblica" {% if request.args.get('fonte') == 'Repubblica' %} selected {% endif %}>Repubblica</option> 
+            <option value="Corriere della sera" {% if request.args.get('fonte') == 'Corriere della sera' %} selected {% endif %}>Corriere</option>
+            <option value="ANSA" {% if request.args.get('fonte') == 'ANSA' %} selected {% endif %}>ANSA</option>
+            <option value="Ilsole24ore" {% if request.args.get('fonte') == 'Ilsole24ore' %} selected {% endif %}>Ilsole24ore</option>
+        </select>
+        
+        Dal: <input type="date" name="data_inizio" value="{{ request.args.get('data_inizio') }}"> 
+        Al: <input type="date" name="data_fine" value="{{ request.args.get('data_fine') }}">
+        
+        <button type="submit">Filtra</button>
+    </form>
+
+    <hr>
+
+    <ul>
+        {% for titolo, url, fonte, data, summary in articoli %}
+            <li>
+                <a href="{{ url }}" target="_blank">{{ titolo }}</a><br>
+                <small>{{ fonte }} - {{ data }}</small>
+                <p>{{ summary }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

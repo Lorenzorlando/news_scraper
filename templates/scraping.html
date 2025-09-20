@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+    
+    <title>Nuovo Scraping</title>
+    <!-- Redirect automatico dopo 3 secondi sulla route homepage -->
+    <meta http-equiv="refresh" content="3;url={{ url_for('homepage') }}">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+        }
+
+        /* Loader circolare */
+        .loader {
+            border: 8px solid #f3f3f3; /* sfondo del loader */
+            border-top: 8px solid #3498db; /* colore animato */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h2>Il sistema sta effettuando un nuovo scraping...</h2>
+    <div class="loader"></div>
+    <p>Verrai reindirizzato automaticamente alla homepage.</p>
+</body>
+</html>
